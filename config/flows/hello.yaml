@@ -1,0 +1,51 @@
+---
+  flow-definitions:
+    - name: hello
+      queue: hello_task
+      sampling:
+        name: constant
+        args:
+          retry: 10
+      edges:
+        - from: 
+          to: CheckMessage
+        - from: CheckMessage
+          to: MessageLength
+        - from: MessageLength
+          to: SuccessAction
+          condition:
+            and:
+              - name: 'fieldEqual'
+                args:
+                  key: 'status'
+                  value: True
+
+              - name: 'fieldEqual'
+                args:
+                  key: 'checkvalue'
+                  value: True
+
+              - name: 'fieldEqual'
+                args:
+                  key: 'length'
+                  value: True
+        # - from: MessageLength
+        #   to: FailureAction
+        #   condition:
+        #     or:
+        #       - name: 'fieldEqual'
+        #         args:
+        #           key: 'status'
+        #           value: False
+
+        #       - name: 'fieldEqual'
+        #         args:
+        #           key: 'checkvalue'
+        #           value: False
+
+
+      # failures:
+      #   - nodes:
+      #       - MessageLength
+      #     fallback:
+      #       - FailureAction

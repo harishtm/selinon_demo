@@ -1,0 +1,42 @@
+=======================================================================================================================
+
+With and condition
+
+flow_defi_revse = [{'flow-definitions': [{'name': 'my_new_flow',
+                                          'queue': 'hello_task',
+                                          'sampling': {'name': 'constant', 'args': {'retry': 10}},
+                                          'edges': [{'from': '', 'to': 'CheckMessage'},
+                                                    {'from': 'CheckMessage', 'to': 'MessageLength'},
+                                                    {'from': 'MessageLength', 'to': 'SuccessAction', 
+                                                     'condition': {'and': [{'name': 'fieldEqual',
+                                                                           'args': {'key': 'status',
+                                                                                    'value': True}},
+                                                                           {'name': 'fieldEqual',
+                                                                           'args': {'key': 'checkvalue',
+                                                                                    'value': True}},
+                                                                           {'name': 'fieldEqual',
+                                                                            'args': {'key': 'length',
+                                                                                    'value': True}}]}},
+                                                    {'from': 'MessageLength', 'to': 'FailureAction',
+                                                     'condition': {'name': 'fieldEqual',
+                                                                   'args': {'key': 'status', 'value': False}}}]
+                                        }]
+                                    }]
+=======================================================================================================================
+
+With Simple condition without and/or
+
+flow_definition = [{'flow-definitions': [{'name': 'my_new_flow',
+                                          'queue': 'hello_task',
+                                          'sampling': {'name': 'constant', 'args': {'retry': 10}},
+                                          'edges': [{'from': '', 'to': 'CheckMessage'},
+                                                    {'from': 'CheckMessage', 'to': 'MessageLength'},
+                                                    {'from': 'MessageLength', 'to': 'SuccessAction', 
+                                                     'condition': {'name': 'fieldEqual',
+                                                                   'args': {'key': 'status', 'value': True}}},
+                                                    {'from': 'MessageLength', 'to': 'FailureAction',
+                                                     'condition': {'name': 'fieldEqual',
+                                                                   'args': {'key': 'status', 'value': False}}}],
+                                          'failures': [{'nodes': 'MessageLength', 'fallback': 'FailureAction'}]
+                                        }]
+                                    }]

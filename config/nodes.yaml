@@ -1,0 +1,47 @@
+---
+  tasks:
+    - name: CheckMessage
+      classname: CheckMessage
+      queue: hello_task
+      import: 'tasks'
+      max_retry: 0
+      storage: Redis
+
+    - name: MessageLength
+      classname: MessageLength
+      queue: hello_task
+      import: 'tasks'
+      max_retry: 0
+      storage: Redis
+
+    - name: SuccessAction
+      classname: SuccessAction
+      queue: hello_task
+      import: 'tasks'
+      max_retry: 0
+      storage: Redis
+
+    - name: FailureAction
+      classname: FailureAction
+      queue: hello_task
+      import: 'tasks'
+      max_retry: 0
+      storage: Redis
+
+
+  flows:
+    - hello
+
+  storages:
+  - name: Redis
+    import: selinon.storages.redis
+    configuration:
+      host: localhost
+      port: 6379
+      db: 1
+      charset: 'utf-8'
+
+  global:
+    trace:
+      - json: true
+    migration_dir: migration_dir
