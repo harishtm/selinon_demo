@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block relatedCSS %}
+<style media="screen">
+  .accordion.accordion-2 p {
+    font-size: 12px !important;
+  }
+  .auto-cardheader {
+    background-color: #312f47;
+  }
+  .auto-cardheader a {
+    color: #FFF;
+    text-decoration:  none;
+  }
+  .auto-card-componentsList ul {
+    padding: 0 !important;
+  }
+  .auto-options-right {
+    background-color: #3d3b56;
+  }
+  #root .row .col-xl-3.col-lg-3.col-md-3.col-sm-3.col-xs-3{
+    background-color: #3d3b56;
+    padding:0;
+  }
+  .auto-card-componentsList {
+    background-color: #fff;
+  }
+  .sidemenuacc {
+    border: none !important;
+  }
+  .auto-card-componentsList ul li div:first-child {
+    display: inline;
+    color: #515151 !important;
+    width:80%;
+  }
+  .auto-card-componentsList ul li span {
+    float: right;
+  }
+
+  .auto-card-componentsList ul li {
+    padding: 3% 0%;
+    cursor: pointer;
+  }
+</style>
+{% endblock %}
+{% block title %} Products Automation {% endblock %}
+{% block category_active_css %} m-menu__item--active {% endblock %}
+{% block breadcrumb %}
+<nav class="breadcrumb breadcrumbBg">
+    <a class="breadcrumb-item" href="#">Automation</a>
+    <a class="breadcrumb-item" href="#">Create</a>
+</nav>
+{% endblock %}
+
+{% block breadActions %}
+<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+    <ul class="social-icons social-icons-color">
+
+    </ul>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
+
+{% block mainbody-content %}
+<div class="m-portlet m-portlet--tabs h-75">
+    <div class="m-portlet__body px-0 h-100">
+        {% with contentHeader="Automation" tooltips=tooltips.Automation %}{% include "contentHeading.html" %}{% endwith %}
+                  <div id='root' data-flowId={{ flowId }} data-save-image="{% static 'assets/app/media/img/icons/save.png' %}" data-settings-image="{% static 'assets/app/media/img/icons/settings.png' %}" >
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer-width %} home-footer-width {% endblock %}
+
+{% block scripts %}
+
+    <script src="{% static 'components/main.908cbcad.js' %}" type="text/javascript"></script>
+    <script type="text/javascript">
+    $( document ).ready(function() {
+      $('.collapse').on('shown.bs.collapse', function(){
+        $(this).parent().find(".fa-angle-down").removeClass("fa-angle-down").addClass("fa-angle-right");
+      }).on('hidden.bs.collapse', function(){
+        $(this).parent().find(".fa-angle-right").removeClass("fa-angle-right").addClass("fa-angle-down");
+      });
+    });
+    </script>
+{% endblock %}
